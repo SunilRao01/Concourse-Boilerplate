@@ -2,7 +2,7 @@
 
 set -e -u -x
 
-cd dev-git-project
+cd dev-ci
 
 # This is where you can run your unit test command, such as the ones below:
 # npm install

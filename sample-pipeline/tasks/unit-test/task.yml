@@ -4,20 +4,18 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    # repository: node <-- You would add this if you were going to need node (i.e. npm to run tests, build, etc.)
-    # within the shell scripts
+    repository: node
     tag: 8.12-jessie
 
 inputs:
-  - name: dev-git-project
-  - name: ci
+  - name: dev-ci
 
 # You can cache parts of the project for reuse.
 # For example, if running a front-end application that used npm,
 # you can use the below sample snippet to cache your node_modules directory
 
 #caches:
-#  - path: dev-git-project/node_modules
+#  - path: dev-ci/node_modules
 
 run:
-  path: ci/sample-pipeline/tasks/unit-test/run.sh
+  path: dev-ci/sample-pipeline/tasks/unit-test/run.sh
