@@ -3,13 +3,13 @@ resources:
     type: git
     source:
       uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
-      branch: master
+      branch: dev
 
   - name: prod-ci
     type: git
     source:
       uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
-      branch: dev
+      branch: master
 #     private_key: ((gitlab-gpg-key)) <-- You can optionally add a key when using an SSH git uri
 
 jobs:
