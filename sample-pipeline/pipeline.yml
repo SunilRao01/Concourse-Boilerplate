@@ -44,7 +44,7 @@ jobs:
   - name: Deploy to Prod
     plan:
       - aggregate:
-          - get: prod-git-project
+          - get: prod-ci
             trigger: false
       - task: deploy-to-prod
         file: ci/sample-pipeline/tasks/deploy-prod/task.yml
