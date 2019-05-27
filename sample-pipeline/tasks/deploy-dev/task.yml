@@ -7,7 +7,7 @@ image_resource:
     tag: 8.12-jessie
 
 inputs:
-  - name: dev-git-project
+  - name: dev-ci
   - name: ci
 
 run:

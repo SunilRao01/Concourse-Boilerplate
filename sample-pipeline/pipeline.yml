@@ -1,28 +1,22 @@
 resources:
-  - name: ci
+  - name: dev-ci
     type: git
     source:
       uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
       branch: master
 
-  - name: dev-git-project
+  - name: prod-ci
     type: git
     source:
       uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
       branch: dev
-
-  - name: prod-git-project
-    type: git
-    source:
-      uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
-      branch: master
-#      private_key: ((gitlab-gpg-key)) <-- You can optionally add a key when using an SSH git uri
+#     private_key: ((gitlab-gpg-key)) <-- You can optionally add a key when using an SSH git uri
 
 jobs:
   - name: Unit Tests
     plan:
       - aggregate:
-          - get: dev-git-project
+          - get: dev-ci
             trigger: true
           - get: ci
             trigger: false
@@ -32,7 +26,7 @@ jobs:
   - name: Integration Tests
     plan:
       - aggregate:
-          - get: dev-git-project
+          - get: dev-ci
             passed:
               - Unit Tests
             trigger: true
@@ -44,7 +38,7 @@ jobs:
   - name: Deploy to Dev
     plan:
       - aggregate:
-          - get: dev-git-project
+          - get: dev-ci
             passed:
               - Integration Tests
             trigger: true

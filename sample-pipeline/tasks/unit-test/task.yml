@@ -8,7 +8,7 @@ image_resource:
     tag: 8.12-jessie
 
 inputs:
-  - name: dev-git-project
+  - name: dev-ci
   - name: ci
 
 # You can cache parts of the project for reuse.
@@ -16,7 +16,7 @@ inputs:
 # you can use the below sample snippet to cache your node_modules directory
 
 #caches:
-#  - path: dev-git-project/node_modules
+#  - path: dev-ci/node_modules
 
 run:
   path: ci/sample-pipeline/tasks/unit-test/run.sh
