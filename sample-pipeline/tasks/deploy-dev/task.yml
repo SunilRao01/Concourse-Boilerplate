@@ -8,7 +8,6 @@ image_resource:
 
 inputs:
   - name: dev-ci
-  - name: ci
 
 run:
-  path: ci/sample-pipeline/tasks/deploy-dev/run.sh
+  path: dev-ci/sample-pipeline/tasks/deploy-dev/run.sh

@@ -10,7 +10,6 @@ image_resource:
 
 inputs:
   - name: dev-ci
-  - name: ci
 
 # You can cache parts of the project for reuse.
 # For example, if running a front-end application that used npm,
@@ -20,4 +19,4 @@ inputs:
 #  - path: dev-ci/node_modules
 
 run:
-  path: ci/sample-pipeline/tasks/integration-test/run.sh
+  path: dev-ci/sample-pipeline/tasks/integration-test/run.sh
