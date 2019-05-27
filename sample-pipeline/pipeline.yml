@@ -52,8 +52,6 @@ jobs:
             trigger: false
       - task: deploy-to-dev
         file: ci/sample-pipeline/tasks/deploy-dev/task.yml
-        params:
-          RSA_KEY: ((deploy-rsa-key))
 
   - name: Deploy to Prod
     plan:
@@ -64,9 +62,6 @@ jobs:
             trigger: false
       - task: deploy-to-prod
         file: ci/sample-pipeline/tasks/deploy-prod/task.yml
-        params:
-          RSA_KEY: ((deploy-rsa-key))
-
 
 groups:
   - name: Development
