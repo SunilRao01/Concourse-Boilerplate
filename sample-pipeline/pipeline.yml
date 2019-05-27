@@ -1,72 +1,53 @@
 resources:
-  - name: ci
-    type: git
-    source:
-      uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
-      branch: master
-
-  - name: dev-git-project
+  - name: dev-ci
     type: git
     source:
       uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
       branch: dev
 
-  - name: prod-git-project
+  - name: prod-ci
     type: git
     source:
       uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
       branch: master
-#      private_key: ((gitlab-gpg-key)) <-- You can optionally add a key when using an SSH git uri
+#     private_key: ((gitlab-gpg-key)) <-- You can optionally add a key when using an SSH git uri
 
 jobs:
   - name: Unit Tests
     plan:
       - aggregate:
-          - get: dev-git-project
+          - get: dev-ci
             trigger: true
-          - get: ci
-            trigger: false
       - task: run-unit-tests
-        file: ci/sample-pipeline/tasks/unit-test/task.yml
+        file: dev-ci/sample-pipeline/tasks/unit-test/task.yml
 
   - name: Integration Tests
     plan:
       - aggregate:
-          - get: dev-git-project
+          - get: dev-ci
             passed:
               - Unit Tests
             trigger: true
-          - get: ci
-            trigger: false
-      - task: run-unit-tests
-        file: ci/sample-pipeline/tasks/unit-test/task.yml
+      - task: run-integration-tests
+        file: dev-ci/sample-pipeline/tasks/integration-test/task.yml
 
   - name: Deploy to Dev
     plan:
       - aggregate:
-          - get: dev-git-project
+          - get: dev-ci
             passed:
               - Integration Tests
             trigger: true
-          - get: ci
-            trigger: false
-      - task: deploy-to-vm
-        file: ci/sample-pipeline/tasks/deploy-dev/task.yml
-        params:
-          RSA_KEY: ((deploy-rsa-key))
+      - task: deploy-to-dev
+        file: dev-ci/sample-pipeline/tasks/deploy-dev/task.yml
 
   - name: Deploy to Prod
     plan:
       - aggregate:
-          - get: prod-git-project
+          - get: prod-ci
             trigger: false
-          - get: ci
-            trigger: false
-      - task: deploy-to-vm
-        file: ci/sample-pipeline/tasks/deploy-prod/task.yml
-        params:
-          RSA_KEY: ((deploy-rsa-key))
-
+      - task: deploy-to-prod
+        file: prod-ci/sample-pipeline/tasks/deploy-prod/task.yml
 
 groups:
   - name: Development
