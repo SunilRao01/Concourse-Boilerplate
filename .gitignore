@@ -1,0 +1,6 @@
+# Exclude IDE config files
+.idea
+
+# Exlude generated keys
+keys/web/*
+keys/worker/*

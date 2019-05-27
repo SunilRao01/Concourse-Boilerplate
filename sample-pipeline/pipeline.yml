@@ -1,0 +1,77 @@
+resources:
+  - name: ci
+    type: git
+    source:
+      uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
+      branch: master
+
+  - name: dev-git-project
+    type: git
+    source:
+      uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
+      branch: dev
+
+  - name: prod-git-project
+    type: git
+    source:
+      uri: https://github.com/SunilRao01/Concourse-Boilerplate.git
+      branch: master
+#      private_key: ((gitlab-gpg-key)) <-- You can optionally add a key when using an SSH git uri
+
+jobs:
+  - name: Unit Tests
+    plan:
+      - aggregate:
+          - get: dev-git-project
+            trigger: true
+          - get: ci
+            trigger: false
+      - task: run-unit-tests
+        file: ci/sample-pipeline/tasks/unit-test/task.yml
+
+  - name: Integration Tests
+    plan:
+      - aggregate:
+          - get: dev-git-project
+            trigger: true
+          - get: ci
+            trigger: false
+      - task: run-unit-tests
+        file: ci/sample-pipeline/tasks/unit-test/task.yml
+
+  - name: Deploy to Dev
+    plan:
+      - aggregate:
+          - get: dev-git-project
+            passed:
+              - Integration Tests
+            trigger: true
+          - get: ci
+            trigger: false
+      - task: deploy-to-vm
+        file: ci/sample-pipeline/tasks/deploy-dev/task.yml
+        params:
+          RSA_KEY: ((deploy-rsa-key))
+
+  - name: Deploy to Prod
+    plan:
+      - aggregate:
+          - get: prod-git-project
+            trigger: false
+          - get: ci
+            trigger: false
+      - task: deploy-to-vm
+        file: ci/sample-pipeline/tasks/deploy-prod/task.yml
+        params:
+          RSA_KEY: ((deploy-rsa-key))
+
+
+groups:
+  - name: Development
+    jobs:
+      - Unit Tests
+      - Integration Tests
+      - Deploy to Dev
+  - name: Production
+    jobs:
+      - Deploy to Prod

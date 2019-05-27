@@ -1,0 +1,14 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    tag: 8.12-jessie
+
+inputs:
+  - name: prod-git-project
+  - name: ci
+
+run:
+  path: ci/sample-pipeline/tasks/deploy-prod/run.sh
