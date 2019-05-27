@@ -18,8 +18,6 @@ jobs:
       - aggregate:
           - get: dev-ci
             trigger: true
-          - get: ci
-            trigger: false
       - task: run-unit-tests
         file: ci/sample-pipeline/tasks/unit-test/task.yml
 
@@ -30,8 +28,6 @@ jobs:
             passed:
               - Unit Tests
             trigger: true
-          - get: ci
-            trigger: false
       - task: run-integration-tests
         file: ci/sample-pipeline/tasks/integration-test/task.yml
 
@@ -42,8 +38,6 @@ jobs:
             passed:
               - Integration Tests
             trigger: true
-          - get: ci
-            trigger: false
       - task: deploy-to-dev
         file: ci/sample-pipeline/tasks/deploy-dev/task.yml
 
@@ -51,8 +45,6 @@ jobs:
     plan:
       - aggregate:
           - get: prod-git-project
-            trigger: false
-          - get: ci
             trigger: false
       - task: deploy-to-prod
         file: ci/sample-pipeline/tasks/deploy-prod/task.yml
