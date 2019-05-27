@@ -33,6 +33,8 @@ jobs:
     plan:
       - aggregate:
           - get: dev-git-project
+            passed:
+              - Unit Tests
             trigger: true
           - get: ci
             trigger: false
