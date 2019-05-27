@@ -31,4 +31,9 @@ You must have the following installed for this to work:
 6. Fin.
 
    You can see the sample pipeline at your local Concourse instance.
-   (Note: You may have to "unpause" the pipeline on start, which can be done from the UI) 
+   (Note: You may have to "unpause" the pipeline on start, which can be done from the UI)
+   
+### Resources
+
+If you'd like to learn more about how Concourse works (e.g. what the hell is a "Concourse Resource"?)
+take a look at the [Concourse Docs](https://concourse-ci.org/docs.html)
