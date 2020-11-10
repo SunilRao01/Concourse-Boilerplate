@@ -1,7 +1,7 @@
 # Concourse Boilerplate
 
 <p align="center">
-  <img width="280" height="280" src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.brandeps.com%2Flogo-download%2FC%2FConcourse-01.png&f=1">
+  <img width="280" height="280" src="https://github.com/SunilRao01/Concourse-Boilerplate/blob/master/concourse_logo.png?raw=true">
 </p>
 
 Boilerplate with sample configurations for a [Concourse](https://concourse-ci.org/) CI/CD instance
